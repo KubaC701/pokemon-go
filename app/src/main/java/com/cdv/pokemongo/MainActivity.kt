@@ -15,19 +15,13 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import com.cdv.pokemongo.data.api.POKEMON_LIST
 import com.cdv.pokemongo.data.api.getPokemonData
 import com.cdv.pokemongo.data.services.LocationService
-import com.cdv.pokemongo.ui.composables.MapMarker
+import com.cdv.pokemongo.ui.composables.Map
 import com.cdv.pokemongo.ui.theme.PokemonGOTheme
-import com.google.android.gms.maps.model.CameraPosition
 import com.google.android.gms.maps.model.LatLng
-import com.google.android.gms.maps.model.MapStyleOptions
-import com.google.maps.android.compose.CameraPositionState
-import com.google.maps.android.compose.GoogleMap
-import com.google.maps.android.compose.MapProperties
 
 
 class MainActivity : ComponentActivity() {
@@ -81,23 +75,6 @@ fun Main() {
     }
     LocationService().listen(context, ::updateLocation)
     Map(deviceLatLng)
-}
-
-@Composable
-fun Map(latLng: LatLng) {
-    GoogleMap(
-        modifier = Modifier.fillMaxSize(),
-        properties = MapProperties(
-            mapStyleOptions = MapStyleOptions(stringResource(R.string.map_config))
-        ),
-        cameraPositionState = CameraPositionState(position = CameraPosition(latLng, 18f, 0f, 0f))
-    ) {
-        MapMarker(
-            latLng,
-            "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/551.png"
-        )
-    }
-
 }
 
 @Preview(showBackground = true)
