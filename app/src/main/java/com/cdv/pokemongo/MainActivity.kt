@@ -1,6 +1,5 @@
 package com.cdv.pokemongo
 
-import android.annotation.SuppressLint
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -19,10 +18,10 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.cdv.pokemongo.ui.theme.PokemonGOTheme
 import com.google.android.gms.maps.model.CameraPosition
 import com.google.android.gms.maps.model.LatLng
+import com.google.maps.android.compose.CameraPositionState
 import com.google.maps.android.compose.GoogleMap
 import com.google.maps.android.compose.Marker
 import com.google.maps.android.compose.MarkerState
-import com.google.maps.android.compose.rememberCameraPositionState
 
 
 class MainActivity : ComponentActivity() {
@@ -72,18 +71,14 @@ fun Main() {
         deviceLatLng = LatLng(lat, lon)
     }
     LocationService().listen(context, ::updateLocation)
-
     Map(deviceLatLng)
 }
 
 @Composable
 fun Map(latLng: LatLng) {
-    val cameraPositionState = rememberCameraPositionState {
-        position = CameraPosition.fromLatLngZoom(latLng, 10f)
-    }
     GoogleMap(
         modifier = Modifier.fillMaxSize(),
-        cameraPositionState = cameraPositionState
+        cameraPositionState = CameraPositionState(position = CameraPosition(latLng, 18f, 0f, 0f))
     ) {
         Marker(
             state = MarkerState(position = latLng),

@@ -12,7 +12,7 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 
 
-class LocationService: Service() {
+class LocationService : Service() {
 
     override fun onCreate() {
         ContextCompat.startForegroundService(this, Intent(this, LocationService::class.java))
@@ -23,50 +23,54 @@ class LocationService: Service() {
     companion object {
         const val PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION = 1234
     }
-     val locationPermissionGranted = mutableStateOf(false)
+
+    val locationPermissionGranted = mutableStateOf(false)
 
 
-     fun onRequestPermissionsResult(
+    fun onRequestPermissionsResult(
         requestCode: Int,
         grantResults: IntArray
     ) {
 
-        if(requestCode== PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION && grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED){
-            locationPermissionGranted.value=true
+        if (requestCode == PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION && grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+            locationPermissionGranted.value = true
         }
     }
 
-     fun getLocationPermission(activity: Activity) {
-          if (ContextCompat.checkSelfPermission(
-                 activity,
-                 android.Manifest.permission.ACCESS_FINE_LOCATION
-             )
-             == PackageManager.PERMISSION_GRANTED
-         ) {
-             locationPermissionGranted.value = true
+    fun getLocationPermission(activity: Activity) {
+        if (ContextCompat.checkSelfPermission(
+                activity,
+                android.Manifest.permission.ACCESS_FINE_LOCATION
+            )
+            == PackageManager.PERMISSION_GRANTED
+        ) {
+            locationPermissionGranted.value = true
 
-         } else {
-             ActivityCompat.requestPermissions(
-                 activity, arrayOf(android.Manifest.permission.ACCESS_FINE_LOCATION),
-                 PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION
-             )
+        } else {
+            ActivityCompat.requestPermissions(
+                activity, arrayOf(android.Manifest.permission.ACCESS_FINE_LOCATION),
+                PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION
+            )
 
-         }
+        }
     }
-     fun listen(context: Context, updateCallback:(lat: Double, lon: Double)-> Unit) {
+
+    fun listen(context: Context, updateCallback: (lat: Double, lon: Double) -> Unit) {
         LocationHelper().startListeningUserLocation(
             context, object : MyLocationListener {
                 override fun onLocationChanged(location: Location?) {
-                    if(location != null) {
+                    if (location != null) {
                         updateCallback(location.latitude, location.longitude)
                     }
                 }
             })
         return
     }
+
     override fun onBind(intent: Intent): IBinder? {
         return null
     }
+
     override fun onDestroy() {
         super.onDestroy()
     }

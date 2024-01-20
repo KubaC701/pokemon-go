@@ -9,6 +9,7 @@ import android.location.LocationManager
 class LocationHelper {
     private var LOCATION_REFRESH_TIME = 3000
     private var LOCATION_REFRESH_DISTANCE = 0
+
     @SuppressLint("MissingPermission")
     fun startListeningUserLocation(context: Context, myListener: MyLocationListener) {
         val mLocationManager = context.getSystemService(Context.LOCATION_SERVICE) as LocationManager
@@ -16,6 +17,7 @@ class LocationHelper {
             override fun onLocationChanged(location: Location) {
                 myListener.onLocationChanged(location)
             }
+
             override fun onProviderEnabled(provider: String) {}
             override fun onProviderDisabled(provider: String) {}
         }
@@ -27,6 +29,7 @@ class LocationHelper {
         )
     }
 }
+
 interface MyLocationListener {
     fun onLocationChanged(location: Location?)
 }
