@@ -1,6 +1,7 @@
 package com.cdv.pokemongo
 
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.fillMaxSize
@@ -56,6 +57,9 @@ class MainActivity : ComponentActivity() {
                 }
             }
         }
+        getPokemonData((1..1025).random())
+        getPokemonData((1..1025).random())
+        getPokemonData((1..1025).random())
     }
 }
 
@@ -93,4 +97,8 @@ fun MapPreview() {
     PokemonGOTheme {
         Map(LatLng(52.41586505577246, 16.931699256882602))
     }
+}
+
+fun PokemonListUpdated(){
+    Log.d("POKEMON LIST UPDATED", POKEMON_LIST.size.toString());
 }
