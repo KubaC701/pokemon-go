@@ -7,14 +7,22 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 
 @Composable
-fun CustomButton(text: String) {
-    Button(onClick = {}, shape = RoundedCornerShape(20.dp))  {
-        Text(text = text) // Use the parameter text instead of hardcoding "text"
+fun CustomButton(
+    text: String
+    onClick: ()-> Unit,
+
+) {
+    Button(
+        onClick = onClick,
+        modifier = modifier.padding(8.dp)
+        shape = RoundedCornerShape(20.dp),)  {
+        Text(text = text)
+        color // Use the parameter text instead of hardcoding "text"
     }
 }
 
 @Preview
 @Composable
 fun PreviewCustomButton() {
-    CustomButton(text = "Play")
+    CustomButton(text = "Button Text")
 }

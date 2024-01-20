@@ -17,8 +17,7 @@ fun Title(
     Text(
         text = text,
         modifier = Modifier
-            .padding(16.dp)
-            .padding(top = 16.dp), // Add additional padding if needed
+            .padding(16.dp),
         fontSize = fontSize.sp,
         fontWeight = fontWeight
     )
