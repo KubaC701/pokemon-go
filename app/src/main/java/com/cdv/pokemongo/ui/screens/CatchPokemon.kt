@@ -33,7 +33,7 @@ fun CatchPokemon(
             Text(state.pokemon!!.name, fontSize = 36.sp)
             AsyncImage(
                 modifier = Modifier.fillMaxWidth(),
-                model = state.pokemon!!.sprites.front_default.toString(),
+                model = state.pokemon!!.sprites.highRes,
                 contentDescription = state.pokemon!!.name
             )
             Button(onClick = {}) {
