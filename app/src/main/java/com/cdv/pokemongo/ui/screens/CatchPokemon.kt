@@ -2,8 +2,10 @@ package com.cdv.pokemongo.ui.screens
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.material3.Button
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
@@ -11,16 +13,21 @@ import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import coil.compose.AsyncImage
+import com.cdv.pokemongo.ui.models.BackpackModel
 import com.cdv.pokemongo.ui.models.PokemonDetailsModel
 
 @Composable
 fun CatchPokemon(
     navController: NavController,
     pokemonId: String,
-    pokemonModel: PokemonDetailsModel = viewModel()
+    pokemonModel: PokemonDetailsModel = viewModel(),
+    backpackModel: BackpackModel = viewModel()
 ) {
     val state by pokemonModel.uiState.collectAsState()
-    pokemonModel.fetchDetails(pokemonId.toInt())
+
+    LaunchedEffect(Unit) {
+        pokemonModel.fetchDetails(pokemonId.toInt())
+    }
 
 
     Column {
@@ -31,6 +38,12 @@ fun CatchPokemon(
                 model = state.pokemon!!.sprites.front_default.toString(),
                 contentDescription = state.pokemon!!.name
             )
+            Button(onClick = {
+                backpackModel.add(state.pokemon!!);
+            
+            }) {
+                Text(text = "Catch")
+            }
 
         }
     }
