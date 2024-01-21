@@ -36,7 +36,7 @@ fun Bag(navController: NavController) {
             Row(rowModifier,Arrangement.SpaceAround){
                 PokemonImage(pokemonModifier, Green80, "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/36.png")
                 Spacer(spacerModifier)
-                PokemonImage(pokemonModifier, Green80)
+                PokemonImage(pokemonModifier, Green80, "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/35.png")
             }
         }
         Button(onClick = { navController.navigate(Screen.Main.name) }) {

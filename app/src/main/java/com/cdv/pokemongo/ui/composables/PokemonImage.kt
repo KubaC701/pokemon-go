@@ -18,7 +18,7 @@ import com.cdv.pokemongo.ui.theme.Green40
 fun PokemonImage(
         modifier : Modifier = Modifier,
         color : Color = Green40,
-        url : String = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/35.png"
+        url : String
 ){
     Box(
         modifier = modifier
@@ -39,5 +39,5 @@ fun PokemonImage(
 @Preview
 @Composable
 fun PokemonImagePreview(){
-    PokemonImage()
+    PokemonImage(url = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/35.png")
 }
