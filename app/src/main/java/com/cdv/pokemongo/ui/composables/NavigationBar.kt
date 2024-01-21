@@ -46,8 +46,8 @@ fun BottomNavigationBar(navController: NavController) {
 
         BottomNavItems.forEach { item ->
             IconButton(
-//                modifier = Modifier.background(if (currentRoute == item.route) Pink80 else Purple40),
                 onClick = {
+                    if (currentRoute == item.route) return@IconButton;
                     navController.navigate(item.route) {
                         popUpTo(navController.graph.startDestinationId)
                         launchSingleTop = true
