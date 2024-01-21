@@ -48,8 +48,11 @@ fun App(navController: NavHostController = rememberNavController()) {
             composable(Screen.Encyclopedia.name) {
                 Encyclopedia(navController)
             }
-            composable(Screen.CatchPokemon.name) {
-                CatchPokemon(navController)
+            composable("${Screen.CatchPokemon.name}/{pokemonId}") { backStackEntry ->
+                CatchPokemon(
+                    navController,
+                    checkNotNull(backStackEntry.arguments?.getString("pokemonId"))
+                )
             }
         }
     }

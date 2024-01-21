@@ -36,7 +36,7 @@ fun Map(latLng: LatLng, navController: NavController, pokemonsModel: PokemonsMod
                 pokemonsModel.getSimilarLocation(latLng),
                 pokemon.sprites.front_default.toString(),
                 onClick = {
-                    navController.navigate(Screen.CatchPokemon.name)
+                    navController.navigate("${Screen.CatchPokemon.name}/${pokemon.id}")
                 }
             )
         }
