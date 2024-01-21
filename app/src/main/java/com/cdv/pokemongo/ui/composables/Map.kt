@@ -8,7 +8,9 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.NavController
 import com.cdv.pokemongo.R
+import com.cdv.pokemongo.Screen
 import com.cdv.pokemongo.ui.models.PokemonsModel
 import com.google.android.gms.maps.model.CameraPosition
 import com.google.android.gms.maps.model.LatLng
@@ -18,7 +20,7 @@ import com.google.maps.android.compose.GoogleMap
 import com.google.maps.android.compose.MapProperties
 
 @Composable
-fun Map(latLng: LatLng, pokemonsModel: PokemonsModel = viewModel()) {
+fun Map(latLng: LatLng, navController: NavController, pokemonsModel: PokemonsModel = viewModel()) {
     val pokemonsState by pokemonsModel.uiState.collectAsState()
 
     GoogleMap(
@@ -32,7 +34,10 @@ fun Map(latLng: LatLng, pokemonsModel: PokemonsModel = viewModel()) {
             Log.d("LATLNG DATA POKEMON", pokemon.name)
             MapMarker(
                 pokemonsModel.getSimilarLocation(latLng),
-                pokemon.sprites.front_default.toString()
+                pokemon.sprites.front_default.toString(),
+                onClick = {
+                    navController.navigate(Screen.CatchPokemon.name)
+                }
             )
         }
     }

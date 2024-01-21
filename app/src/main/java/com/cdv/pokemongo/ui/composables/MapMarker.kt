@@ -11,6 +11,7 @@ import com.bumptech.glide.Glide
 import com.google.android.gms.maps.model.BitmapDescriptor
 import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.google.android.gms.maps.model.LatLng
+import com.google.android.gms.maps.model.Marker
 import com.google.maps.android.compose.Marker
 import com.google.maps.android.compose.MarkerState
 import kotlinx.coroutines.Dispatchers
@@ -34,7 +35,7 @@ suspend fun loadBitmapDescriptorFromUrl(context: Context, imageUrl: String): Bit
 
 @Composable
 fun MapMarker(
-    latLng: LatLng, imageUrl: String
+    latLng: LatLng, imageUrl: String, onClick: (Marker) -> Unit
 ) {
     val context = LocalContext.current
     val iconState = remember { mutableStateOf<BitmapDescriptor?>(null) }
@@ -46,6 +47,10 @@ fun MapMarker(
     })
 
     iconState.value?.let {
-        Marker(state = MarkerState(position = latLng), icon = it)
+        Marker(state = MarkerState(position = latLng), icon = it, onClick = { marker ->
+            onClick(marker)
+            true
+        })
+
     }
 }
