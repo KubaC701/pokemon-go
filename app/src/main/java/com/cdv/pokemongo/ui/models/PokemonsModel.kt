@@ -10,14 +10,12 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
-import kotlinx.coroutines.time.delay
 import kotlin.random.Random
 
 class PokemonsModel : ViewModel() {
     private val _uiState = MutableStateFlow(PokemonsState())
     val uiState: StateFlow<PokemonsState> = _uiState.asStateFlow()
     private var pokemons: ArrayList<Pokemon> = arrayListOf<Pokemon>();
-    private var test: String = "test"
     init{
         for(i in 1..3){
             addPokemon()
@@ -47,8 +45,8 @@ class PokemonsModel : ViewModel() {
     fun getSimilarLocation(latLng : LatLng) : LatLng{
         val randomGenerator = Random(System.currentTimeMillis())
         val baseVal = 0.5
-        val divideVal = 300
-        val lat = latLng.latitude + randomGenerator.nextDouble(baseVal*-1/divideVal, baseVal/divideVal)
+        val divideVal = 400
+        val lat = latLng.latitude + randomGenerator.nextDouble(baseVal*-2/divideVal, baseVal*2/divideVal)
         val lng = latLng.longitude + randomGenerator.nextDouble(baseVal*-1/divideVal, baseVal/divideVal)
 
         Log.d("LATLNG DATA LAT", lat.toString())
