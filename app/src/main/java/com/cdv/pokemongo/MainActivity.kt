@@ -16,8 +16,6 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
-import com.cdv.pokemongo.data.api.POKEMON_LIST
-import com.cdv.pokemongo.data.api.getPokemonData
 import com.cdv.pokemongo.data.services.LocationService
 import com.cdv.pokemongo.ui.composables.Map
 import com.cdv.pokemongo.ui.theme.PokemonGOTheme
@@ -56,9 +54,6 @@ class MainActivity : ComponentActivity() {
                 }
             }
         }
-        getPokemonData((1..1025).random())
-        getPokemonData((1..1025).random())
-        getPokemonData((1..1025).random())
     }
 }
 
@@ -83,8 +78,4 @@ fun MapPreview() {
     PokemonGOTheme {
         Map(LatLng(52.41586505577246, 16.931699256882602))
     }
-}
-
-fun PokemonListUpdated() {
-    Log.d("POKEMON LIST UPDATED", POKEMON_LIST.size.toString());
 }

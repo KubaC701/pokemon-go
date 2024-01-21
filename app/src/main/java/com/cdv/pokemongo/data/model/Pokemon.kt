@@ -1,6 +1,7 @@
 package com.cdv.pokemongo.data.model
 
 import android.util.Log
+import com.google.android.gms.maps.model.LatLng
 import java.net.URL
 
 class Pokemon(
@@ -8,7 +9,8 @@ class Pokemon(
     val name: String,
     val sprites: Sprites,
     val stats: ArrayList<Stats>,
-    val types: ArrayList<Types>
+    val types: ArrayList<Types>,
+    var latLng: LatLng
 ) {
     fun showPokemonData(showDetails: Boolean = false) {
         Log.d("POKEMON OBJECT DATA", this.id.toString());

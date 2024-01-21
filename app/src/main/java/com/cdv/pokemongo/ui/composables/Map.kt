@@ -1,5 +1,6 @@
 package com.cdv.pokemongo.ui.composables
 
+import android.util.Log
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
@@ -27,9 +28,10 @@ fun Map(latLng: LatLng, pokemonsModel: PokemonsModel = viewModel()) {
         ),
         cameraPositionState = CameraPositionState(position = CameraPosition(latLng, 18f, 0f, 0f))
     ) {
-        pokemonsState.pokemon.forEach { pokemon ->
+        pokemonsState.pokemons.forEach { pokemon ->
+            Log.d("LATLNG DATA POKEMON", pokemon.name)
             MapMarker(
-                latLng,
+                pokemonsModel.getSimilarLocation(latLng),
                 pokemon.sprites.front_default.toString()
             )
         }
