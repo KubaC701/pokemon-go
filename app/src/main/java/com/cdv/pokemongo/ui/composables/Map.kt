@@ -34,7 +34,7 @@ fun Map(latLng: LatLng, navController: NavController, pokemonsModel: PokemonsMod
             Log.d("LATLNG DATA POKEMON", pokemon.name)
             MapMarker(
                 pokemonsModel.getSimilarLocation(latLng),
-                pokemon.sprites.front_default.toString(),
+                pokemon.sprites.lowRes,
                 onClick = {
                     navController.navigate("${Screen.CatchPokemon.name}/${pokemon.id}")
                 }
