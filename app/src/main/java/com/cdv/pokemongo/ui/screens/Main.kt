@@ -8,8 +8,8 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.platform.LocalContext
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
-import com.cdv.pokemongo.Map
 import com.cdv.pokemongo.data.services.LocationService
+import com.cdv.pokemongo.ui.composables.Map
 import com.google.android.gms.maps.model.LatLng
 
 @Composable
