@@ -9,14 +9,11 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.navigation.NavHostController
+import androidx.navigation.compose.rememberNavController
 import com.cdv.pokemongo.data.api.POKEMON_LIST
 import com.cdv.pokemongo.data.api.getPokemonData
 import com.cdv.pokemongo.data.services.LocationService
@@ -50,12 +47,11 @@ class MainActivity : ComponentActivity() {
         setContent {
             PokemonGOTheme {
                 Surface(
-                    modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
                     locationService.getLocationPermission(this)
                     if (locationService.locationPermissionGranted.value) {
-                        Main()
+                        App()
                     } else {
                         Text("Need permission")
                     }
@@ -70,21 +66,7 @@ class MainActivity : ComponentActivity() {
 
 
 @Composable
-fun Main() {
-    val context = LocalContext.current
-    var deviceLatLng by remember {
-        mutableStateOf(LatLng(0.0, 0.0))
-    }
-
-    fun updateLocation(lat: Double, lon: Double) {
-        deviceLatLng = LatLng(lat, lon)
-    }
-    LocationService().listen(context, ::updateLocation)
-    Map(deviceLatLng)
-}
-
-@Composable
-fun Map(latLng: LatLng) {
+fun Map(latLng: LatLng, navController: NavHostController = rememberNavController()) {
     GoogleMap(
         modifier = Modifier.fillMaxSize(),
         properties = MapProperties(
@@ -94,7 +76,10 @@ fun Map(latLng: LatLng) {
     ) {
         MapMarker(
             latLng,
-            "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/551.png"
+            "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/551.png",
+            onClick = {
+                navController.navigate(Screen.CatchPokemon.name)
+            }
         )
     }
 
