@@ -12,7 +12,7 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlin.random.Random
 
-class PokemonsModel : ViewModel() {
+class PokemonsModel() : ViewModel() {
     private val _uiState = MutableStateFlow(PokemonsState())
     val uiState: StateFlow<PokemonsState> = _uiState.asStateFlow()
     private var pokemons: ArrayList<Pokemon> = arrayListOf<Pokemon>();
@@ -21,8 +21,9 @@ class PokemonsModel : ViewModel() {
             addPokemon()
         }
     }
-    fun addPokemon(){
-        Thread{
+
+    fun addPokemon() {
+        Thread {
             val pokemonJSON = getPokemonData((1..1025).random())
             Log.d("RETURNED JSON", pokemonJSON)
             handleResponse(Gson().fromJson(pokemonJSON, Pokemon::class.java))
@@ -34,15 +35,14 @@ class PokemonsModel : ViewModel() {
     fun handleResponse(newPokemon: Pokemon) {
         newPokemon.showPokemonData();
         pokemons.add(newPokemon)
-        _uiState.update {
-            currentState ->
-                currentState.copy(
-                    pokemons = pokemons
+        _uiState.update { currentState ->
+            currentState.copy(
+                pokemons = pokemons
             )
         }
     }
 
-    fun getSimilarLocation(latLng : LatLng) : LatLng{
+    fun getSimilarLocation(latLng: LatLng): LatLng {
         val randomGenerator = Random(System.currentTimeMillis())
         val baseVal = 0.5
         val divideVal = 400

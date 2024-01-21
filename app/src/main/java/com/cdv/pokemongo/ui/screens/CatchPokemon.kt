@@ -1,18 +1,37 @@
 package com.cdv.pokemongo.ui.screens
 
 import androidx.compose.foundation.layout.Column
-import androidx.compose.material3.Button
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
-import com.cdv.pokemongo.Screen
+import coil.compose.AsyncImage
+import com.cdv.pokemongo.ui.models.PokemonDetailsModel
 
 @Composable
-fun CatchPokemon(navController: NavController) {
+fun CatchPokemon(
+    navController: NavController,
+    pokemonId: String,
+    pokemonModel: PokemonDetailsModel = viewModel()
+) {
+    val state by pokemonModel.uiState.collectAsState()
+    pokemonModel.fetchDetails(pokemonId.toInt())
+
+
     Column {
-        Text(text = "CatchPokemon")
-        Button(onClick = { navController.navigate(Screen.Main.name) }) {
-            Text("Main")
+        if (state.pokemon != null) {
+            Text(state.pokemon!!.name, fontSize = 36.sp)
+            AsyncImage(
+                modifier = Modifier.fillMaxWidth(),
+                model = state.pokemon!!.sprites.front_default.toString(),
+                contentDescription = state.pokemon!!.name
+            )
+
         }
     }
 }
