@@ -1,4 +1,4 @@
-package com.cdv.pokemongo
+package com.cdv.pokemongo.data.services
 
 import android.app.Activity
 import android.app.Service

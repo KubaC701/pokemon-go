@@ -1,4 +1,4 @@
-package com.cdv.pokemongo
+package com.cdv.pokemongo.data.services
 
 import android.annotation.SuppressLint
 import android.content.Context

@@ -1,7 +1,6 @@
 package com.cdv.pokemongo.ui.theme
 
 import android.app.Activity
-import android.os.Build
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.darkColorScheme
@@ -16,6 +15,7 @@ import androidx.compose.ui.platform.LocalView
 import androidx.core.view.WindowCompat
 
 private val DarkColorScheme = darkColorScheme(
+
     primary = PrimaryColor,
     secondary = SecondaryColor,
     tertiary = TertiaryColor,

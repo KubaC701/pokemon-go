@@ -12,12 +12,12 @@ import androidx.compose.ui.unit.sp
 fun Title(
     text: String,
     fontSize: Int = 20,
-    fontWeight: FontWeight = FontWeight.Bold
+    fontWeight: FontWeight = FontWeight.Bold,
+    modifier: Modifier = Modifier
 ) {
     Text(
         text = text,
-        modifier = Modifier
-            .padding(16.dp),
+        modifier = modifier.padding(16.dp),
         fontSize = fontSize.sp,
         fontWeight = fontWeight
     )

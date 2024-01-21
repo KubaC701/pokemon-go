@@ -2,22 +2,13 @@
 <project version="4">
   <component name="deploymentTargetDropDown">
     <value>
-      <entry key="ButtonWithTextComposablePreview">
-        <State />
-      </entry>
-      <entry key="PreviewButton">
+      <entry key="FilledIconButton">
         <State />
       </entry>
       <entry key="PreviewCustomButton">
         <State />
       </entry>
-      <entry key="PreviewTitle">
-        <State />
-      </entry>
-      <entry key="Text">
-        <State />
-      </entry>
-      <entry key="app">
+      <entry key="SettingsIconButtonPreview">
         <State />
       </entry>
     </value>
