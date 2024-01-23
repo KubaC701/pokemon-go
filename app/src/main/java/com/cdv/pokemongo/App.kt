@@ -4,11 +4,13 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.cdv.pokemongo.ui.composables.BottomNavigationBar
+import com.cdv.pokemongo.ui.models.BackpackModel
 import com.cdv.pokemongo.ui.screens.Bag
 import com.cdv.pokemongo.ui.screens.CatchPokemon
 import com.cdv.pokemongo.ui.screens.Encyclopedia
@@ -27,6 +29,7 @@ enum class Screen() {
 
 @Composable
 fun App(navController: NavHostController = rememberNavController()) {
+    val backpackModel: BackpackModel = viewModel()
     Scaffold(bottomBar = { BottomNavigationBar(navController = navController) }) { innerPadding ->
         NavHost(
             navController = navController,
@@ -34,24 +37,25 @@ fun App(navController: NavHostController = rememberNavController()) {
             modifier = Modifier.padding(innerPadding)
         ) {
             composable(Screen.Main.name) {
-                Main(navController)
+                Main(navController = navController)
             }
             composable(Screen.Bag.name) {
-                Bag(navController)
+                Bag(backpackModel = backpackModel)
             }
             composable(Screen.Profile.name) {
-                Profile(navController)
+                Profile(navController = navController)
             }
             composable(Screen.Settings.name) {
-                Settings(navController)
+                Settings(navController = navController)
             }
             composable(Screen.Encyclopedia.name) {
-                Encyclopedia(navController)
+                Encyclopedia(navController = navController)
             }
             composable("${Screen.CatchPokemon.name}/{pokemonId}") { backStackEntry ->
                 CatchPokemon(
-                    navController,
-                    checkNotNull(backStackEntry.arguments?.getString("pokemonId"))
+                    navController = navController,
+                    pokemonId = checkNotNull(backStackEntry.arguments?.getString("pokemonId")),
+                    backpackModel = backpackModel
                 )
             }
         }
