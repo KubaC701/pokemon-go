@@ -19,7 +19,7 @@ fun AppIconButton(icon : Painter, alt: String) {
     IconButton(onClick = { /* do something */ },
         colors = IconButtonDefaults.iconButtonColors(
             containerColor = SecondaryColor),
-        modifier = Modifier.size(64.dp))
+        modifier = Modifier.size(80.dp))
     {
         Icon(icon, contentDescription = alt,
             Modifier.padding(8.dp))
