@@ -13,12 +13,14 @@ import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import coil.compose.AsyncImage
+import com.cdv.pokemongo.ui.models.BackpackModel
 import com.cdv.pokemongo.ui.models.PokemonDetailsModel
 
 @Composable
 fun CatchPokemon(
     navController: NavController,
     pokemonId: String,
+    backpackModel: BackpackModel = viewModel(),
     pokemonModel: PokemonDetailsModel = viewModel(),
 ) {
     val state by pokemonModel.uiState.collectAsState()
@@ -36,7 +38,7 @@ fun CatchPokemon(
                 model = state.pokemon!!.sprites.highRes,
                 contentDescription = state.pokemon!!.name
             )
-            Button(onClick = {}) {
+            Button(onClick = { backpackModel.add(state.pokemon!!) }) {
                 Text(text = "Catch")
             }
 
