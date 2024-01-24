@@ -42,7 +42,7 @@ fun BottomNavigationBar(navController: NavController) {
             .background(PrimaryColor)
             .padding(8.dp, 16.dp), Arrangement.SpaceBetween
 
-    ) {
+    )   {
 
         BottomNavItems.forEach { item ->
             IconButton(
