@@ -1,13 +1,11 @@
 package com.cdv.pokemongo.ui.screens
 
-import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
+
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.material3.Button
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -16,7 +14,6 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.paint
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
@@ -24,6 +21,7 @@ import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import coil.compose.AsyncImage
+import com.cdv.pokemongo.ui.models.BackpackModel
 import com.cdv.pokemongo.R
 import com.cdv.pokemongo.ui.composables.AppIconButton
 import com.cdv.pokemongo.ui.models.PokemonDetailsModel
@@ -33,6 +31,7 @@ import com.cdv.pokemongo.ui.models.PokemonDetailsModel
 fun CatchPokemon(
     navController: NavController,
     pokemonId: String,
+    backpackModel: BackpackModel = viewModel(),
     pokemonModel: PokemonDetailsModel = viewModel(),
 ) {
     val state by pokemonModel.uiState.collectAsState()
@@ -66,7 +65,7 @@ fun CatchPokemon(
                 )
 
 
-                AppIconButton(painterResource(id = R.drawable.fishing_net), alt = "Settings")
+                AppIconButton(painterResource(id = R.drawable.fishing_net), alt = "Settings", onClick = { backpackModel.add(state.pokemon!!) })
 
 
 

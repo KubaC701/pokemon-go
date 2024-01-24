@@ -15,8 +15,8 @@ import com.cdv.pokemongo.R
 import com.cdv.pokemongo.ui.theme.SecondaryColor
 
 @Composable
-fun AppIconButton(icon : Painter, alt: String) {
-    IconButton(onClick = { /* do something */ },
+fun AppIconButton(icon : Painter, alt: String, onClick: ()->Unit) {
+    IconButton(onClick = onClick,
         colors = IconButtonDefaults.iconButtonColors(
             containerColor = SecondaryColor),
         modifier = Modifier.size(80.dp))
@@ -29,5 +29,5 @@ fun AppIconButton(icon : Painter, alt: String) {
 @Preview
 @Composable
 fun AppIconButtonPreview() {
-    AppIconButton(painterResource (id = R.drawable.fishing_net) , alt = "Settings")
+    AppIconButton(painterResource (id = R.drawable.fishing_net) , alt = "Settings", onClick={})
 }
