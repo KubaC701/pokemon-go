@@ -75,4 +75,6 @@ dependencies {
     implementation("io.coil-kt:coil-compose:2.5.0")
     implementation("androidx.navigation:navigation-compose:2.7.6")
     implementation("io.coil-kt:coil-compose:2.5.0")
+    implementation("androidx.core:core-splashscreen:1.0.1")
+
 }
