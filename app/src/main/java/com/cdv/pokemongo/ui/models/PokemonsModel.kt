@@ -62,4 +62,8 @@ class PokemonsModel() : ViewModel() {
             )
         }
     }
+
+    fun getPokemonListSize() : Int{
+        return pokemons.size
+    }
 }

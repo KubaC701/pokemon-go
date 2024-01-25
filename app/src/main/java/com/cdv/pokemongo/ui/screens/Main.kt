@@ -9,11 +9,13 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
+import com.cdv.pokemongo.data.model.PokemonTimer
 import com.cdv.pokemongo.data.services.LocationService
 import com.cdv.pokemongo.ui.composables.Map
 import com.cdv.pokemongo.ui.models.PokemonsModel
 import com.cdv.pokemongo.ui.models.UserLocationModel
 import com.google.android.gms.maps.model.LatLng
+import java.util.Timer
 
 @Composable
 fun Main(navController: NavHostController = rememberNavController(), userLocationModel: UserLocationModel, pokemonsModel : PokemonsModel = viewModel()) {
@@ -32,10 +34,7 @@ fun Main(navController: NavHostController = rememberNavController(), userLocatio
 
         if(deviceLatLng != userLocationModel.getUserLocation()){
             if(!hasBeenInitialized){
-                pokemonsModel.addPokemon(deviceLatLng);
-                pokemonsModel.addPokemon(deviceLatLng);
-                pokemonsModel.addPokemon(deviceLatLng);
-
+                schedulePokemonSpawn(pokemonsModel, userLocationModel);
                 hasBeenInitialized = true
             }
 
@@ -46,4 +45,16 @@ fun Main(navController: NavHostController = rememberNavController(), userLocatio
 
     LocationService().listen(context, ::updateLocation)
     Map(deviceLatLng, navController, pokemonsModel)
+}
+
+fun schedulePokemonSpawn(pokemonsModel: PokemonsModel, userLocationModel: UserLocationModel){
+    Timer().scheduleAtFixedRate(
+        object : PokemonTimer(userLocationModel, pokemonsModel){
+            override fun run(){
+                if(pokemonsModel.getPokemonListSize() < 3){
+                    pokemonsModel.addPokemon(userLocationModel.getUserLocation())
+                }
+            }
+        }, 0, 10000
+    )
 }
