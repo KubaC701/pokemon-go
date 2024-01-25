@@ -1,58 +1,65 @@
 package com.cdv.pokemongo.ui.models
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import com.cdv.pokemongo.data.api.getPokemonData
-import com.cdv.pokemongo.data.model.Pokemon
+import com.cdv.pokemongo.data.model.PokemonOnMap
 import com.google.android.gms.maps.model.LatLng
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import org.json.JSONObject
-import kotlin.random.Random
+import kotlin.math.abs
 
 class PokemonsModel() : ViewModel() {
     private val _uiState = MutableStateFlow(PokemonsState())
     val uiState: StateFlow<PokemonsState> = _uiState.asStateFlow()
-    private var pokemons: ArrayList<Pokemon> = arrayListOf<Pokemon>();
-    init{
-        for(i in 1..3){
-            addPokemon()
-        }
-    }
+    private var pokemons: ArrayList<PokemonOnMap> = arrayListOf<PokemonOnMap>();
 
-    fun addPokemon() {
+    fun addPokemon(latLng: LatLng, number: Int) {
         Thread {
             val pokemonJSON = getPokemonData((1..1025).random())
-            Log.d("RETURNED JSON", pokemonJSON)
-            handleResponse(JSONObject(pokemonJSON))
+            handleResponse(JSONObject(pokemonJSON), latLng)
 
             Thread.currentThread().interrupt();
         }.start()
     }
 
-    fun handleResponse(pokemonJSON: JSONObject) {
-        val newPokemon = Pokemon(pokemonJSON)
+    fun handleResponse(pokemonJSON: JSONObject, latLng: LatLng) {
+        val newPokemon = PokemonOnMap(pokemonJSON, latLng)
         newPokemon.showPokemonData();
 
         pokemons.add(newPokemon)
-        _uiState.update { currentState ->
-            currentState.copy(
-                pokemons = pokemons
-            )
-        }
+        updatePokemonsInUI()
     }
 
-    fun getSimilarLocation(latLng: LatLng): LatLng {
-        val randomGenerator = Random(System.currentTimeMillis())
-        val baseVal = 0.5
-        val divideVal = 400
-        val lat = latLng.latitude + randomGenerator.nextDouble(baseVal*-2/divideVal, baseVal*2/divideVal)
-        val lng = latLng.longitude + randomGenerator.nextDouble(baseVal*-1/divideVal, baseVal/divideVal)
+    fun checkIfPokemonsTooFar(latLng: LatLng){
+        val pokemonIndexesToRemove : ArrayList<Int> = arrayListOf<Int>();
+        pokemons.forEachIndexed { index, pokemon ->
+            if(pokemon.latLng == null) return;
 
-        Log.d("LATLNG DATA LAT", lat.toString())
-        Log.d("LATLNG DATA LNG", lng.toString())
-        return LatLng(lat, lng)
+            if(abs((abs(pokemon.latLng!!.latitude) - abs(latLng.latitude)) +
+                (abs(pokemon.latLng!!.longitude) - abs(latLng.longitude))) > 2){
+                pokemonIndexesToRemove.add(index);
+            }
+        }
+
+        if(pokemonIndexesToRemove.size > 0) removePokemon(pokemonIndexesToRemove);
+    }
+
+    fun removePokemon(indexes : ArrayList<Int>){
+        for(i in indexes.size - 1 downTo 0){
+            pokemons.removeAt(indexes[i]);
+        }
+
+        updatePokemonsInUI();
+    }
+
+    fun updatePokemonsInUI(){
+        _uiState.update { currentState ->
+            currentState.copy(
+                pokemons = ArrayList(pokemons)
+            )
+        }
     }
 }

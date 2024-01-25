@@ -3,7 +3,7 @@ package com.cdv.pokemongo.data.model
 import android.util.Log
 import org.json.JSONObject
 
-class Pokemon(pokemonJson: JSONObject) {
+open class Pokemon(pokemonJson: JSONObject) {
     val id: Int = pokemonJson.getInt("id")
     val name: String = pokemonJson.getString("name")
     val sprites: Sprites = Sprites(
