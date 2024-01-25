@@ -11,6 +11,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.cdv.pokemongo.ui.composables.BottomNavigationBar
 import com.cdv.pokemongo.ui.models.BackpackModel
+import com.cdv.pokemongo.ui.models.UserLocationModel
 import com.cdv.pokemongo.ui.screens.Bag
 import com.cdv.pokemongo.ui.screens.CatchPokemon
 import com.cdv.pokemongo.ui.screens.Encyclopedia
@@ -30,6 +31,7 @@ enum class Screen() {
 @Composable
 fun App(navController: NavHostController = rememberNavController()) {
     val backpackModel: BackpackModel = viewModel()
+    val userLocationModel: UserLocationModel = viewModel()
     Scaffold(bottomBar = { BottomNavigationBar(navController = navController) }) { innerPadding ->
         NavHost(
             navController = navController,
@@ -37,7 +39,7 @@ fun App(navController: NavHostController = rememberNavController()) {
             modifier = Modifier.padding(innerPadding)
         ) {
             composable(Screen.Main.name) {
-                Main(navController = navController)
+                Main(navController = navController, userLocationModel)
             }
             composable(Screen.Bag.name) {
                 Bag(backpackModel = backpackModel)

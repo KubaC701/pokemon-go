@@ -16,7 +16,7 @@ class PokemonsModel() : ViewModel() {
     val uiState: StateFlow<PokemonsState> = _uiState.asStateFlow()
     private var pokemons: ArrayList<PokemonOnMap> = arrayListOf<PokemonOnMap>();
 
-    fun addPokemon(latLng: LatLng, number: Int) {
+    fun addPokemon(latLng: LatLng) {
         Thread {
             val pokemonJSON = getPokemonData((1..1025).random())
             handleResponse(JSONObject(pokemonJSON), latLng)
