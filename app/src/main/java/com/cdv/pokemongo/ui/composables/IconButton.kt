@@ -1,6 +1,5 @@
 package com.cdv.pokemongo.ui.composables
 
-import android.util.Log
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Icon
@@ -26,7 +25,6 @@ fun AppIconButton(icon : Painter, alt: String, onClick: ()->Unit, fireOnce :Bool
     }
     
     IconButton(enabled = isEnabled, onClick = {
-        Log.d("FIRE ONCE fireOnce", isEnabled.toString())
         if(fireOnce){
             isEnabled = false
             onClick()
