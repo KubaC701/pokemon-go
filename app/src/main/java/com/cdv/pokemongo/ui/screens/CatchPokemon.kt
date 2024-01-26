@@ -23,8 +23,10 @@ import androidx.navigation.NavController
 import coil.compose.AsyncImage
 import com.cdv.pokemongo.ui.models.BackpackModel
 import com.cdv.pokemongo.R
+import com.cdv.pokemongo.Screen
 import com.cdv.pokemongo.ui.composables.AppIconButton
 import com.cdv.pokemongo.ui.models.PokemonDetailsModel
+import com.cdv.pokemongo.ui.models.PokemonsModel
 
 
 @Composable
@@ -32,13 +34,14 @@ fun CatchPokemon(
     navController: NavController,
     pokemonId: String,
     backpackModel: BackpackModel = viewModel(),
-    pokemonModel: PokemonDetailsModel = viewModel(),
+    pokemonDetailModel: PokemonDetailsModel = viewModel(),
+    pokemonModel : PokemonsModel = viewModel(),
 ) {
-    val state by pokemonModel.uiState.collectAsState()
+    val state by pokemonDetailModel.uiState.collectAsState()
     val backgroundImage = painterResource (id = R.drawable.background)
 
     LaunchedEffect(Unit) {
-        pokemonModel.fetchDetails(pokemonId.toInt())
+        pokemonDetailModel.fetchDetails(pokemonId.toInt())
     }
 
 
@@ -64,12 +67,15 @@ fun CatchPokemon(
                     contentDescription = state.pokemon!!.name
                 )
 
-
-                AppIconButton(painterResource(id = R.drawable.fishing_net), alt = "Settings", onClick = { backpackModel.add(state.pokemon!!) })
-
-
-
-
+                AppIconButton(painterResource(id = R.drawable.fishing_net), alt = "Settings",
+                    onClick = {
+                        navController.navigate(Screen.Main.name) {
+                            popUpTo(navController.graph.startDestinationId)
+                            launchSingleTop = true
+                        }
+                        backpackModel.add(state.pokemon!!)
+                        pokemonModel.removeSinglePokemon(state.pokemon!!.id)
+                    }, fireOnce = true)
             }
         }
 
