@@ -47,7 +47,7 @@ fun App(navController: NavHostController = rememberNavController()) {
                 Bag(backpackModel = backpackModel)
             }
             composable(Screen.Profile.name) {
-                Profile(navController = navController)
+                Profile()
             }
             composable(Screen.Settings.name) {
                 Settings(navController = navController)
