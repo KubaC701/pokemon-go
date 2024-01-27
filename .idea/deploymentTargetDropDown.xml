@@ -2,13 +2,22 @@
 <project version="4">
   <component name="deploymentTargetDropDown">
     <value>
+      <entry key="AppIconButtonPreview">
+        <State />
+      </entry>
       <entry key="FilledIconButton">
         <State />
       </entry>
-      <entry key="PreviewCustomButton">
+      <entry key="GreenCardPreview">
         <State />
       </entry>
-      <entry key="SettingsIconButtonPreview">
+      <entry key="MyPokemonPreview">
+        <State />
+      </entry>
+      <entry key="NavigationBarPreview">
+        <State />
+      </entry>
+      <entry key="app">
         <State />
       </entry>
     </value>
