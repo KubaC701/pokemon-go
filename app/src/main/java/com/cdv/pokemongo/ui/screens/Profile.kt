@@ -21,11 +21,18 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.material3.Button
+import androidx.compose.material3.Text
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.paint
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import coil.compose.AsyncImagePainter.State.Empty.painter
 import com.cdv.pokemongo.Screen
+
 import com.cdv.pokemongo.ui.composables.BottomNavigationBar
 import com.cdv.pokemongo.ui.composables.ChangeProfileButton
 import com.cdv.pokemongo.ui.composables.Title
@@ -33,6 +40,7 @@ import com.cdv.pokemongo.ui.theme.BackgroundColor
 import com.cdv.pokemongo.ui.theme.PrimaryColor
 
 @Composable
+
 fun Profile() {
     val profileAvatarItems = listOf(
         painterResource(id = R.drawable.p0),
@@ -72,7 +80,9 @@ fun Profile() {
             Image(painter = activeProfile, contentDescription = "avatar")
             ChangeProfileButton(painterResource(id = R.drawable.next_button), alt = "next", onClick = {nextProfile()})
         }
+
     }
+
 
 }
 

@@ -2,4 +2,10 @@
 <resources>
 
     <style name="Theme.PokemonGO" parent="android:Theme.Material.Light.NoActionBar" />
+
+    <style name="Theme.PokemonGO.Starting" parent="Theme.SplashScreen">
+        <item name="windowSplashScreenBackground">@color/background</item>
+        <item name="windowSplashScreenAnimatedIcon">@mipmap/ic_launcher</item>
+        <item name="postSplashScreenTheme">@style/Theme.PokemonGO</item>
+    </style>
 </resources>
