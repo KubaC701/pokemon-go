@@ -44,15 +44,20 @@ class PokemonsModel() : ViewModel() {
             }
         }
 
-        if(pokemonIndexesToRemove.size > 0) removePokemon(pokemonIndexesToRemove);
+        if(pokemonIndexesToRemove.size > 0) removeMultiplePokemons(pokemonIndexesToRemove);
     }
 
-    fun removePokemon(indexes : ArrayList<Int>){
+    fun removeMultiplePokemons(indexes : ArrayList<Int>){
         for(i in indexes.size - 1 downTo 0){
             pokemons.removeAt(indexes[i]);
         }
 
         updatePokemonsInUI();
+    }
+
+    fun removeSinglePokemon(pokemonId : Int){
+        pokemons.removeIf{it.id == pokemonId}
+        updatePokemonsInUI()
     }
 
     fun updatePokemonsInUI(){
