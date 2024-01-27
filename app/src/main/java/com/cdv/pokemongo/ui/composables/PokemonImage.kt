@@ -23,7 +23,7 @@ fun PokemonImage(
     Box(
         modifier = modifier
             .fillMaxSize()
-            .clip(shape = RoundedCornerShape(10.dp))
+            .clip(shape = RoundedCornerShape(20.dp))
             .background(color)
     ){
         AsyncImage(
