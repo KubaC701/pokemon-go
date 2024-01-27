@@ -70,7 +70,7 @@ fun Profile() {
                 Modifier
                     .fillMaxSize()
                     .background(TertiaryColor), contentAlignment = Alignment.Center){
-                Text(text = "Zmiana awatara", fontSize = 36.sp, fontWeight = FontWeight.Bold)
+                Title(text = "Zmiana awatara")
             }
         }
         Spacer(modifier = Modifier.padding(10.dp))
