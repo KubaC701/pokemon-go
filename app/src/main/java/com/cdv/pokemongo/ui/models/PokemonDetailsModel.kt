@@ -4,11 +4,11 @@ import android.util.Log
 import androidx.lifecycle.ViewModel
 import com.cdv.pokemongo.data.api.getPokemonData
 import com.cdv.pokemongo.data.model.Pokemon
-import com.google.gson.Gson
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
+import org.json.JSONObject
 
 class PokemonDetailsModel() : ViewModel() {
     private val _uiState = MutableStateFlow(PokemonDetailsState())
@@ -16,21 +16,18 @@ class PokemonDetailsModel() : ViewModel() {
 
     fun fetchDetails(pokemonId: Int) {
         Thread {
-            try {
-                val pokemonJSON = getPokemonData(pokemonId)
-                Log.d("RETURNED JSON", pokemonJSON)
-                handleResponse(Gson().fromJson(pokemonJSON, Pokemon::class.java))
-            } catch (error: Throwable) {
-                Log.e("Fetch", error.toString())
-            }
-
+            val pokemonJSON = getPokemonData(pokemonId)
+            Log.d("RETURNED JSON", pokemonJSON)
+            handleResponse(JSONObject(pokemonJSON))
 
             Thread.currentThread().interrupt();
         }.start()
     }
 
-    fun handleResponse(newPokemon: Pokemon) {
+    private fun handleResponse(pokemonJSON: JSONObject) {
+        val newPokemon = Pokemon(pokemonJSON)
         newPokemon.showPokemonData();
+
         _uiState.update { currentState ->
             currentState.copy(
                 pokemon = newPokemon

@@ -39,7 +39,7 @@ fun BottomNavigationBar(navController: NavController) {
             .background(TertiaryColor)
             .padding(8.dp, 16.dp), Arrangement.SpaceBetween
 
-    ) {
+    )   {
 
         val BottomNavItems = listOf(
             BottomNavItem(Screen.Profile.name, painterResource (id = R.drawable.usericon), "Profile"),
@@ -49,8 +49,8 @@ fun BottomNavigationBar(navController: NavController) {
 
         BottomNavItems.forEach { item ->
             IconButton(
-//                modifier = Modifier.background(if (currentRoute == item.route) Pink80 else Purple40),
                 onClick = {
+                    if (currentRoute == item.route) return@IconButton;
                     navController.navigate(item.route) {
                         popUpTo(navController.graph.startDestinationId)
                         launchSingleTop = true
