@@ -21,19 +21,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.material3.Button
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.paint
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
-import androidx.navigation.NavController
-import androidx.navigation.compose.rememberNavController
-import coil.compose.AsyncImagePainter.State.Empty.painter
-import com.cdv.pokemongo.Screen
-
-import com.cdv.pokemongo.ui.composables.BottomNavigationBar
 import com.cdv.pokemongo.ui.composables.ChangeProfileButton
 import com.cdv.pokemongo.ui.composables.Title
 import com.cdv.pokemongo.ui.theme.BackgroundColor
