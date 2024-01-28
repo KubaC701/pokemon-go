@@ -43,7 +43,7 @@ fun MyPokemon(pokemon : Pokemon) {
             Column(Modifier.weight(2f), horizontalAlignment = Alignment.CenterHorizontally) {
                 Text(text = pokemon.name.replaceFirstChar(Char::titlecase), fontSize = 28.sp, fontWeight = FontWeight.Bold)
                 Spacer(Modifier.padding(10.dp))
-                Text(text = "Level: ${pokemon.level}", fontSize = 22.sp, fontWeight = FontWeight.Bold)
+                Text(text = "Poziom ${pokemon.level}", fontSize = 22.sp, fontWeight = FontWeight.Bold)
                 Spacer(Modifier.padding(5.dp))
                 LinearProgressIndicator(progress = pokemon.level.toFloat()/10, color = Color.Green)
             }

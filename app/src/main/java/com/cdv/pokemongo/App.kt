@@ -34,8 +34,8 @@ enum class Screen() {
 fun App(navController: NavHostController = rememberNavController()) {
     val backpackModel: BackpackModel = viewModel()
     val userLocationModel: UserLocationModel = viewModel()
-    val pokemonsModel : PokemonsModel = viewModel()
-    val profileModel : ProfileModel = viewModel()
+    val pokemonsModel: PokemonsModel = viewModel()
+    val profileModel: ProfileModel = viewModel()
     Scaffold(bottomBar = { BottomNavigationBar(navController = navController) }) { innerPadding ->
         NavHost(
             navController = navController,
@@ -49,7 +49,7 @@ fun App(navController: NavHostController = rememberNavController()) {
                 Bag(backpackModel = backpackModel)
             }
             composable(Screen.Profile.name) {
-                Profile(profileModel)
+                Profile(profileModel, backpackModel)
             }
             composable(Screen.Settings.name) {
                 Settings(navController = navController)

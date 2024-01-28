@@ -14,9 +14,13 @@ class BackpackModel() : ViewModel() {
 
     fun add(newPokemon: Pokemon) {
         pokemons.add(newPokemon)
+        val bestPokemon = pokemons.sortedByDescending {
+            it.level
+        }[0]
         _uiState.update { currentState ->
             currentState.copy(
-                pokemons = pokemons
+                pokemons = pokemons,
+                bestPokemon = bestPokemon
             )
         }
     }

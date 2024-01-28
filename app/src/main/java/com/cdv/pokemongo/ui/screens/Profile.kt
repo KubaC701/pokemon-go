@@ -19,17 +19,20 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
+import coil.compose.AsyncImage
 import com.cdv.pokemongo.R
 import com.cdv.pokemongo.ui.composables.ChangeProfileButton
 import com.cdv.pokemongo.ui.composables.Title
+import com.cdv.pokemongo.ui.models.BackpackModel
 import com.cdv.pokemongo.ui.models.ProfileModel
 import com.cdv.pokemongo.ui.theme.BackgroundColor
 import com.cdv.pokemongo.ui.theme.PrimaryColor
 
 @Composable
 
-fun Profile(profileModel: ProfileModel) {
+fun Profile(profileModel: ProfileModel, backpackModel: BackpackModel) {
     val profileState by profileModel.uiState.collectAsState()
+    val backpackState by backpackModel.uiState.collectAsState()
     Box(
         modifier = Modifier
             .fillMaxSize()
@@ -38,7 +41,7 @@ fun Profile(profileModel: ProfileModel) {
 
     Column(modifier = Modifier.padding(16.dp)) {
 
-        Title(text = "Zmiana awatara")
+        Title(text = "Twój profil")
 
 
         Spacer(modifier = Modifier.padding(10.dp))
@@ -64,6 +67,15 @@ fun Profile(profileModel: ProfileModel) {
                 painterResource(id = R.drawable.next_button),
                 alt = "next",
                 onClick = { profileModel.nextProfile() })
+        }
+        if (backpackState.bestPokemon != null) {
+            Spacer(modifier = Modifier.padding(32.dp))
+            Title(text = "Twój buddy")
+            AsyncImage(
+                modifier = Modifier.fillMaxWidth(),
+                model = backpackState.bestPokemon!!.sprites.highRes,
+                contentDescription = backpackState.bestPokemon!!.name
+            )
         }
     }
 }
