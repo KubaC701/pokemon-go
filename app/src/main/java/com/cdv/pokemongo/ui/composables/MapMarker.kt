@@ -2,6 +2,7 @@ package com.cdv.pokemongo.ui.composables
 
 import android.content.Context
 import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.mutableStateOf
@@ -33,24 +34,44 @@ suspend fun loadBitmapDescriptorFromUrl(context: Context, imageUrl: String): Bit
         }
 }
 
+fun createBitmapFromResource(resourceId: Int?, context: Context): BitmapDescriptor? {
+    if (resourceId == null) return null;
+    val bitmap = BitmapFactory.decodeResource(context.resources, resourceId)
+    val scaledBitmap = Bitmap.createScaledBitmap(bitmap, 200, 200, false);
+    return BitmapDescriptorFactory.fromBitmap(scaledBitmap)
+}
+
 @Composable
 fun MapMarker(
-    latLng: LatLng, imageUrl: String, onClick: (Marker) -> Unit
+    latLng: LatLng,
+    imageUrl: String? = null,
+    onClick: (Marker) -> Unit = {},
+    imageDrawableId: Int? = null,
+    title: String? = null
 ) {
+
     val context = LocalContext.current
-    val iconState = remember { mutableStateOf<BitmapDescriptor?>(null) }
+    val bitmapIcon = createBitmapFromResource(imageDrawableId, context)
+    val iconState =
+        remember { mutableStateOf(bitmapIcon) }
     LaunchedEffect(key1 = Unit, block = {
-        iconState.value = loadBitmapDescriptorFromUrl(
-            context,
-            imageUrl
-        )
+        if (imageUrl != null)
+            iconState.value = loadBitmapDescriptorFromUrl(
+                context,
+                imageUrl
+            )
     })
 
-    iconState.value?.let {
-        Marker(state = MarkerState(position = latLng), icon = it, onClick = { marker ->
-            onClick(marker)
-            true
-        })
 
+
+    iconState.value?.let {
+        Marker(
+            state = MarkerState(position = latLng),
+            icon = it,
+            title = title,
+            onClick = { marker ->
+                onClick(marker)
+                false
+            })
     }
 }
