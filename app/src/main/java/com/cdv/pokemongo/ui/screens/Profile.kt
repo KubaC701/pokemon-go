@@ -16,6 +16,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -30,35 +31,19 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.cdv.pokemongo.ui.composables.ChangeProfileButton
 import com.cdv.pokemongo.ui.composables.Title
+import com.cdv.pokemongo.ui.models.ProfileModel
 import com.cdv.pokemongo.ui.theme.BackgroundColor
 import com.cdv.pokemongo.ui.theme.PrimaryColor
 import com.cdv.pokemongo.ui.theme.TertiaryColor
 
 @Composable
 
-fun Profile() {
-    val profileAvatarItems = listOf(
-        painterResource(id = R.drawable.p0),
-        painterResource(id = R.drawable.p1),
-        painterResource(id = R.drawable.p2),
-        painterResource(id = R.drawable.p3))
-    var profileNumber by remember {
-        mutableStateOf(0)
-    }
-    val activeProfile = profileAvatarItems[profileNumber]
-    fun previousProfile(){
-        if(profileNumber>0){
-        profileNumber = profileNumber - 1}
-    }
-    fun nextProfile(){
-        if(profileNumber<profileAvatarItems.size-1){
-            profileNumber = profileNumber + 1}
-    }
+fun Profile(profileModel:ProfileModel) {
+    val profileState by profileModel.uiState.collectAsState()
     Box(
         modifier = Modifier
             .fillMaxSize()
             .background(BackgroundColor))
-
 
     Column(modifier = Modifier .padding(16.dp)) {
         Row(
@@ -83,18 +68,10 @@ fun Profile() {
                 .fillMaxWidth()
                 .padding(24.dp)
         ) {
-            ChangeProfileButton(painterResource(id = R.drawable.previous_button), alt = "previous", onClick = {previousProfile()})
-            Image(painter = activeProfile, contentDescription = "avatar")
-            ChangeProfileButton(painterResource(id = R.drawable.next_button), alt = "next", onClick = {nextProfile()})
+            val choosenAvatar=profileModel.profileAvatarItems[profileState.activeProfileIndex]
+            ChangeProfileButton(painterResource(id = R.drawable.previous_button), alt = "previous", onClick = {profileModel.previousProfile()})
+            Image(painter = painterResource(id = choosenAvatar), contentDescription = "avatar")
+            ChangeProfileButton(painterResource(id = R.drawable.next_button), alt = "next", onClick = {profileModel.nextProfile()})
         }
-
     }
-
-
 }
-
-@Preview
-@Composable
-fun ProfilePreview(){Profile()}
-
-

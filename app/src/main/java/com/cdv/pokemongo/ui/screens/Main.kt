@@ -13,12 +13,13 @@ import com.cdv.pokemongo.data.model.PokemonTimer
 import com.cdv.pokemongo.data.services.LocationService
 import com.cdv.pokemongo.ui.composables.Map
 import com.cdv.pokemongo.ui.models.PokemonsModel
+import com.cdv.pokemongo.ui.models.ProfileModel
 import com.cdv.pokemongo.ui.models.UserLocationModel
 import com.google.android.gms.maps.model.LatLng
 import java.util.Timer
 
 @Composable
-fun Main(navController: NavHostController = rememberNavController(), userLocationModel: UserLocationModel, pokemonsModel : PokemonsModel = viewModel()) {
+fun Main(navController: NavHostController = rememberNavController(), userLocationModel: UserLocationModel, pokemonsModel : PokemonsModel = viewModel(), profileModel: ProfileModel) {
     val context = LocalContext.current
 
     var deviceLatLng by remember {
@@ -44,7 +45,7 @@ fun Main(navController: NavHostController = rememberNavController(), userLocatio
     }
 
     LocationService().listen(context, ::updateLocation)
-    Map(deviceLatLng, navController, pokemonsModel)
+    Map(deviceLatLng, navController, pokemonsModel, profileModel)
 }
 
 fun schedulePokemonSpawn(pokemonsModel: PokemonsModel, userLocationModel: UserLocationModel){
