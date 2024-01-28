@@ -68,9 +68,25 @@ fun CatchPokemon(
                 Text(
                     state.pokemon!!.name.replaceFirstChar { it.uppercase() },
                     fontSize = 44.sp,
-                    fontWeight = FontWeight.Bold
+                    fontWeight = FontWeight.Bold,
+                    textAlign = TextAlign.Center,
+                    lineHeight = 44.sp,
+                    modifier = Modifier.fillMaxWidth()
                 )
-                Text("Łap nicponia!", textAlign = TextAlign.Center, fontSize = 24.sp)
+                Text(
+                    "Poziom ${state.pokemon!!.level}",
+                    textAlign = TextAlign.Center,
+                    fontSize = 16.sp,
+                    modifier = Modifier.fillMaxWidth()
+                )
+                Text(
+                    "Łap nicponia!",
+                    textAlign = TextAlign.Center,
+                    fontSize = 24.sp,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(0.dp, 24.dp, 0.dp, 0.dp)
+                )
             }
             AsyncImage(
                 modifier = Modifier.fillMaxWidth(),
@@ -80,7 +96,7 @@ fun CatchPokemon(
 
             AppIconButton(
                 painterResource(id = R.drawable.fishing_net),
-                alt = "Settings",
+                alt = "Złap pokemona",
                 onClick = {
                     navController.navigate(Screen.Main.name) {
                         popUpTo(navController.graph.startDestinationId)
