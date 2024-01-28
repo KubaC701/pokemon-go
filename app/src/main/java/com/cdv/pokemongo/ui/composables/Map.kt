@@ -18,9 +18,10 @@ import com.google.maps.android.compose.GoogleMap
 import com.google.maps.android.compose.MapProperties
 
 @Composable
-fun Map(latLng: LatLng,
-        navController: NavController,
-        pokemonsModel: PokemonsModel
+fun Map(
+    latLng: LatLng,
+    navController: NavController,
+    pokemonsModel: PokemonsModel,
 ) {
     val pokemonsState by pokemonsModel.uiState.collectAsState()
 
@@ -31,10 +32,15 @@ fun Map(latLng: LatLng,
         ),
         cameraPositionState = CameraPositionState(position = CameraPosition(latLng, 18f, 0f, 0f))
     ) {
+        MapMarker(
+            latLng = latLng,
+            imageDrawableId = R.drawable.p0,
+            title = "Złapię je wszystkie!"
+        )
         pokemonsState.pokemons.forEach { pokemon ->
             MapMarker(
-                pokemon.latLng,
-                pokemon.sprites.lowRes,
+                latLng = pokemon.latLng,
+                imageUrl = pokemon.sprites.lowRes,
                 onClick = {
                     navController.navigate("${Screen.CatchPokemon.name}/${pokemon.id}")
                 }
