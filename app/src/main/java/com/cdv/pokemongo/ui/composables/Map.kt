@@ -25,6 +25,7 @@ fun Map(latLng: LatLng,
         profileModel: ProfileModel
 ) {
     val pokemonsState by pokemonsModel.uiState.collectAsState()
+    val profileState by profileModel.uiState.collectAsState()
 
     GoogleMap(
         modifier = Modifier.fillMaxSize(),
@@ -35,7 +36,7 @@ fun Map(latLng: LatLng,
     ) {
         MapMarker(
             latLng = latLng,
-            imageDrawableId = R.drawable.p0,
+            imageDrawableId = profileModel.profileAvatarItems[profileState.activeProfileIndex],
             title = "Złapię je wszystkie!"
         )
         pokemonsState.pokemons.forEach { pokemon ->
