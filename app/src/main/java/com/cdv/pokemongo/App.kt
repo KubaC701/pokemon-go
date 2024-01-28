@@ -12,6 +12,7 @@ import androidx.navigation.compose.rememberNavController
 import com.cdv.pokemongo.ui.composables.BottomNavigationBar
 import com.cdv.pokemongo.ui.models.BackpackModel
 import com.cdv.pokemongo.ui.models.PokemonsModel
+import com.cdv.pokemongo.ui.models.ProfileModel
 import com.cdv.pokemongo.ui.models.UserLocationModel
 import com.cdv.pokemongo.ui.screens.Bag
 import com.cdv.pokemongo.ui.screens.CatchPokemon
@@ -34,6 +35,7 @@ fun App(navController: NavHostController = rememberNavController()) {
     val backpackModel: BackpackModel = viewModel()
     val userLocationModel: UserLocationModel = viewModel()
     val pokemonsModel : PokemonsModel = viewModel()
+    val profileModel : ProfileModel = viewModel()
     Scaffold(bottomBar = { BottomNavigationBar(navController = navController) }) { innerPadding ->
         NavHost(
             navController = navController,
@@ -41,13 +43,13 @@ fun App(navController: NavHostController = rememberNavController()) {
             modifier = Modifier.padding(innerPadding)
         ) {
             composable(Screen.Main.name) {
-                Main(navController = navController, userLocationModel, pokemonsModel)
+                Main(navController = navController, userLocationModel, pokemonsModel, profileModel)
             }
             composable(Screen.Bag.name) {
                 Bag(backpackModel = backpackModel)
             }
             composable(Screen.Profile.name) {
-                Profile()
+                Profile(profileModel)
             }
             composable(Screen.Settings.name) {
                 Settings(navController = navController)

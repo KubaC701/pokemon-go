@@ -10,6 +10,7 @@ import androidx.navigation.NavController
 import com.cdv.pokemongo.R
 import com.cdv.pokemongo.Screen
 import com.cdv.pokemongo.ui.models.PokemonsModel
+import com.cdv.pokemongo.ui.models.ProfileModel
 import com.google.android.gms.maps.model.CameraPosition
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MapStyleOptions
@@ -18,12 +19,13 @@ import com.google.maps.android.compose.GoogleMap
 import com.google.maps.android.compose.MapProperties
 
 @Composable
-fun Map(
-    latLng: LatLng,
-    navController: NavController,
-    pokemonsModel: PokemonsModel,
+fun Map(latLng: LatLng,
+        navController: NavController,
+        pokemonsModel: PokemonsModel,
+        profileModel: ProfileModel
 ) {
     val pokemonsState by pokemonsModel.uiState.collectAsState()
+    val profileState by profileModel.uiState.collectAsState()
 
     GoogleMap(
         modifier = Modifier.fillMaxSize(),
@@ -34,7 +36,7 @@ fun Map(
     ) {
         MapMarker(
             latLng = latLng,
-            imageDrawableId = R.drawable.p0,
+            imageDrawableId = profileModel.profileAvatarItems[profileState.activeProfileIndex],
             title = "Złapię je wszystkie!"
         )
         pokemonsState.pokemons.forEach { pokemon ->
