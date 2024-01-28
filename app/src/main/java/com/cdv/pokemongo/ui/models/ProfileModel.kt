@@ -1,10 +1,7 @@
 package com.cdv.pokemongo.ui.models
 
-import android.widget.RemoteViews.RemoteCollectionItems
-import androidx.compose.ui.res.painterResource
 import androidx.lifecycle.ViewModel
 import com.cdv.pokemongo.R
-import com.cdv.pokemongo.data.model.PokemonOnMap
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -19,21 +16,28 @@ class ProfileModel : ViewModel() {
     )
     private val _uiState = MutableStateFlow(ProfileState())
     val uiState: StateFlow<ProfileState> = _uiState.asStateFlow()
-    var profileNumber:  Int = 0
+    private var profileNumber: Int = 0
 
-    fun previousProfile(){
-        if(profileNumber>0){
-            profileNumber = profileNumber - 1
-            updateAvatarInUI()
+    fun previousProfile() {
+        if (profileNumber > 0) {
+            profileNumber -= 1
+
+        } else {
+            profileNumber = profileAvatarItems.size - 1
         }
+        updateAvatarInUI()
     }
-    fun nextProfile(){
-        if(profileNumber<profileAvatarItems.size-1){
-            profileNumber = profileNumber + 1
-            updateAvatarInUI()
+
+    fun nextProfile() {
+        if (profileNumber < profileAvatarItems.size - 1) {
+            profileNumber += 1
+        } else {
+            profileNumber = 0
         }
+        updateAvatarInUI()
     }
-    fun updateAvatarInUI(){
+
+    private fun updateAvatarInUI() {
         _uiState.update { currentState ->
             currentState.copy(
                 activeProfileIndex = profileNumber

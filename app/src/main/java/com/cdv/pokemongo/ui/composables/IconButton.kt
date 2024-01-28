@@ -1,5 +1,6 @@
 package com.cdv.pokemongo.ui.composables
 
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Icon
@@ -19,28 +20,46 @@ import com.cdv.pokemongo.R
 import com.cdv.pokemongo.ui.theme.SecondaryColor
 
 @Composable
-fun AppIconButton(icon : Painter, alt: String, onClick: ()->Unit, fireOnce :Boolean = false) {
-    var isEnabled by remember{
+fun AppIconButton(
+    icon: Painter,
+    alt: String,
+    onClick: () -> Unit,
+    modifier: Modifier = Modifier,
+    iconModifier: Modifier = Modifier,
+    fireOnce: Boolean = false,
+) {
+    var isEnabled by remember {
         mutableStateOf(true)
     }
-    
-    IconButton(enabled = isEnabled, onClick = {
-        if(fireOnce){
-            isEnabled = false
-            onClick()
-        } else onClick()
-                         },
+
+    IconButton(
+
+        enabled = isEnabled,
+        onClick = {
+            if (fireOnce) {
+                isEnabled = false
+                onClick()
+            } else onClick()
+        },
         colors = IconButtonDefaults.iconButtonColors(
-            containerColor = SecondaryColor),
-        modifier = Modifier.size(80.dp))
+            containerColor = SecondaryColor
+        ),
+        modifier = modifier
+            .size(48.dp)
+    )
     {
-        Icon(icon, contentDescription = alt,
-            Modifier.padding(8.dp))
+        Icon(
+            painter = icon,
+            contentDescription = alt,
+            modifier = iconModifier
+                .fillMaxSize()
+                .padding(4.dp)
+        )
     }
 }
 
 @Preview
 @Composable
 fun AppIconButtonPreview() {
-    AppIconButton(painterResource (id = R.drawable.fishing_net) , alt = "Settings", onClick={})
+    AppIconButton(painterResource(id = R.drawable.fishing_net), alt = "Settings", onClick = {})
 }
