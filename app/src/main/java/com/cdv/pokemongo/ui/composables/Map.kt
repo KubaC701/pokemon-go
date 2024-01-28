@@ -32,7 +32,7 @@ fun Map(latLng: LatLng,
         properties = MapProperties(
             mapStyleOptions = MapStyleOptions(stringResource(R.string.map_config))
         ),
-        cameraPositionState = CameraPositionState(position = CameraPosition(latLng, 18f, 0f, 0f))
+        cameraPositionState = CameraPositionState(position = CameraPosition(latLng, 14f, 0f, 0f))
     ) {
         MapMarker(
             latLng = latLng,
